@@ -2,7 +2,6 @@
 
 /*
 Das Script ist frei zu verwenden.
-Widgets sind einzigartig und müssen bei unterschiedlichen Positionen mehrmals angelegt werden. 
 */
 
 
@@ -41,7 +40,7 @@ if (config.runsInWidget) {
   // Extra setup needed for 2436-sized phones.
   if (height == 2436) {
   
-    let cacheName = "mz-phone-type"
+    let cacheName = "grtnkrd-transparent-widget"
     let cachePath = files.joinPath(files.libraryDirectory(), cacheName)
   
     // Lade zwischengespeicherte Wallpaper-Größe.
@@ -49,7 +48,7 @@ if (config.runsInWidget) {
       let typeString = files.readString(cachePath)
       phone = phone[typeString]
     
-    // Otherwise, prompt the user.
+    // Falls kein Wallpaper zwischengespeichert
     } else { 
       message = "Welches iPhone hast du?"
       let types = ["iPhone 12 mini", "iPhone 11 Pro, XS, or X"]
@@ -100,15 +99,15 @@ if (config.runsInWidget) {
     let positions = ["Top","Bottom"]
     let position = await generateAlert(message,positions)
     
-    // Large widgets at the bottom have the "middle" y-value.
+ 
     crop.y = position ? phone.middle : phone.top
   }
   
-  // Crop image and finalize the widget.
+  // Crop
   let imgCrop = cropImage(img, new Rect(crop.x,crop.y,crop.w,crop.h))
   
   message = "Dein Widget-Hintergrund ist ready, wollen Sie es für das Script nutzen oder extern speichern?"
-  const exportPhotoOptions = ["Use for this script","Export to Photos","Export to Files"]
+  const exportPhotoOptions = ["Script-Nutzung","Foto-Export","Dokumenten-Export"]
   const exportPhoto = await generateAlert(message,exportPhotoOptions)
   
   if (exportPhoto == 0) {
